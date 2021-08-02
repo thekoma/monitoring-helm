@@ -1,0 +1,12 @@
+# Default values for dynatrace.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+config: 
+  # apiToken: "rand-om_Z"
+  # paasToken: "randoM-sUZ-"
+  # environmentID: "2350293809-234acd-999-111-0132870123891230"
+  # endPoint: dynatrace.endpoint.local
+  apiToken: ""
+  paasToken: ""
+  environmentID: ""
+  endPoint: ""

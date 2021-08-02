@@ -1,0 +1,72 @@
+# Default values for signalilo.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  # registry: docker.io
+  # repository: vshn/signalilo
+  # tag: v0.7.0
+  registry: quay.io
+  repository: vshn/signalilo
+  tag: latest
+  #tag: latest
+  pullPolicy: Always
+  # username:
+  # password:
+  # existingPullSecret: my-image-pull-secret
+
+nameOverride: ""
+fullnameOverride: ""
+serviceName: signalilo-apps
+# Required configuration
+config:
+  uuid: REPLACEME
+  icinga_hostname: REPLACEME
+  icinga_url: https://ICINGA_MASTER_API:5665/
+  icinga_username: signalilo
+  icinga_password: sup3rs3cr3t  
+
+  alertmanager_port: 8888
+  alertmanager_bearer_token: token
+
+# Optional extra configuration
+extraEnvVars:
+#- name: SIGNALILO_LOG_LEVEL
+#  value: "1"
+# - name: SIGNALILO_ICINGA_CA
+#   value: |
+#     -----BEGIN CERTIFICATE-----
+#     ....
+#     -----END CERTIFICATE-----
+- name: SIGNALILO_ICINGA_INSECURE_TLS
+  value: "true"
+#- name: SIGNALILO_ICINGA_DEBUG
+#  value: "false"
+- name: SIGNALILO_ICINGA_GC_INTERVAL
+  value: "5m"
+#- name: SIGNALILO_ICINGA_HEARTBEAT_INTERVAL
+#  value: "60s"
+- name: SIGNALILO_ICINGA_KEEP_FOR
+  value: "10m"
+
+securityContext:
+  enabled: false
+  runAsUser: 999
+  fsGroup: 999
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 768Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+

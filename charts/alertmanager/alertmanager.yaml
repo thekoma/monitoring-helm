@@ -1,0 +1,37 @@
+global:
+  #resolve_timeout: 5m
+  slack_api_url: >-
+    https://hooks.slack.com/services/YOUR/HOOK/ENDPOINT
+receivers:
+  - name: signalilo-api
+    webhook_configs:
+      - http_config:
+          bearer_token: 'token'
+        url: 'http://signalilo-api.signalilonamespace-api.svc.cluster.local/webhook'
+        send_resolved: true
+  - name: signalilo-apps
+    webhook_configs:
+      - http_config:
+          bearer_token: 'token'
+        url: 'http://signalilo-apps.signalilonamespace-apps.svc.cluster.local/webhook'
+        send_resolved: true
+  - name: slack
+    slack_configs:
+      - channel: '#alerts'
+        send_resolved: true
+route:
+  group_by:
+    - namespace
+  receiver: signalilo-apps
+  group_interval: 5m
+  group_wait: 30s
+  repeat_interval: 5m
+  routes:  
+  - match:
+      prometheus: openshift-monitoring/k8s
+    repeat_interval: 5m
+    receiver: signalilo-api
+  - match:
+      prometheus: openshift-user-workload-monitoring/user-workload
+    repeat_interval: 5m
+    receiver: signalilo-apps

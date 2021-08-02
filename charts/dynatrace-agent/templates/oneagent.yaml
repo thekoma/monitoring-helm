@@ -1,0 +1,20 @@
+apiVersion: dynatrace.com/v1alpha1
+kind: OneAgent
+metadata:
+  namespace: dynatrace
+  name: oneagent
+  labels:
+    app: oneagent
+spec:
+  skipCertCheck: true
+  apiUrl: 'https://{{ required ".Values.config.environmentID is required" .Values.config.endPoint }}/e/{{ required ".Values.config.environmentID is required" .Values.config.environmentID }}/api'
+  tokens: oneagent
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+      operator: Exists
+    - key: region-spec 
+      operator: Exists
+      effect: NoSchedule
+  args:
+    - '--set-app-log-content-access=true'

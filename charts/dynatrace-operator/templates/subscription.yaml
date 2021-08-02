@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: oneagent-certified
+  namespace: dynatrace
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: oneagent-certified
+  source: certified-operators
+  sourceNamespace: openshift-marketplace

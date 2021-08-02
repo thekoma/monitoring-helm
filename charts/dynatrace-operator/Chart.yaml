@@ -1,0 +1,17 @@
+apiVersion: v2
+description: Dynatrace Operator Helm
+name: Dynatrace Operator Helm
+managed-by: 
+home: https://github.com/thekoma/monitoring-helm.git
+keywords:
+  - prometheus
+  - alertmanager
+  - webhook
+  - icinga2
+version: 1.0.0
+appVersion: v0.8.0
+sources:
+  - https://github.com/thekoma/monitoring-helm.git
+maintainers:
+  - name: Andrea Cervesato
+    email: andrea.cervesato@gmail.com
